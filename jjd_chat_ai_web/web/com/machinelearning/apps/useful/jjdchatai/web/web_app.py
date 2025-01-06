@@ -7,19 +7,25 @@ import streamlit as st
 import importlib.resources as pkg_resources
 import app.com.machinelearning.apps.useful.jjdchatai.services.posts_loader as pl
 
+
+def session_management():
+    if "vs" not in st.session_state:
+        print(f"session_management()")
+        # files = pkg_resources.files(app_resources)
+        # print(f"files: {files}")
+        # resource_path = files.joinpath(posts_csv_file)
+        # loaded_posts = pl.load_file(resource_path)
+        pass
+
+
 if __name__ == "__main__":
     app_resources = os.environ["APP_WEB_RESOURCES_ROOT"]
     posts_csv_file = "Wpisy-Export-2025-January-02-2137.csv"
+
+    session_management()
 
     st.title("Question and Answer Chat")
     st.write("Question and Answer Chat for the Blog content - powered by AI")
 
     message = st.text_input("Write question:")
     clicked = st.button("Ask question")
-
-
-def session_management():
-    if "vs" not in st.session_state:
-        resource_path = pkg_resources.files(app_resources).joinpath(posts_csv_file)
-        loaded_posts = pl.load_file(resource_path)
-        pass
