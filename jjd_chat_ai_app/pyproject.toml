@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["app"]
+
+[tool.setuptools.package-data]
+"app" = ["resources/*"]
+"app.tests" = ["resources/*"]
+
+[project]
+name = "jjd-chat-ai-app"
+version = "0.1.0"
+description = "Question and Answer Chat for the Blog content - powered by AI"
+authors = [
+    { name = "Jacek Jabłonka", email = "kontakt@juniorjavadeveloper.pl" }
+]
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.6"
+dependencies = [
+    "streamlit",
+    "python-dotenv",
+    "langchain-community"
+]
+
+[project.urls]
+Homepage = "https://www.juniorjavadeveloper.pl/en/"
