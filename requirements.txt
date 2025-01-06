@@ -1,2 +1,4 @@
 setuptools
 streamlit
+jjd_chat_ai_app
+jjd_chat_ai_web
