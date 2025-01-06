@@ -1,6 +1,6 @@
 import os
 import importlib.resources as pkg_resources
-import app.jjd_chat_ai.com.machinelearning.apps.useful.jjdchatai.services.posts_loader as pl
+import app.com.machinelearning.apps.useful.jjdchatai.services.posts_loader as pl
 from dotenv import load_dotenv, find_dotenv
 from unittest import TestCase
 

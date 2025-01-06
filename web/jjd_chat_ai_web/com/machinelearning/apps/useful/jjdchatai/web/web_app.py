@@ -5,7 +5,7 @@ import os
 import streamlit as st
 
 import importlib.resources as pkg_resources
-import app.jjd_chat_ai.com.machinelearning.apps.useful.jjdchatai.services.posts_loader as pl
+import app.com.machinelearning.apps.useful.jjdchatai.services.posts_loader as pl
 
 if __name__ == "__main__":
     app_resources = os.environ["APP_WEB_RESOURCES_ROOT"]
