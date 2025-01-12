@@ -13,3 +13,8 @@ def load_file(file_path):
 
     data = loader.load()
     return data
+
+
+def t():
+    print("t()")
+    pass

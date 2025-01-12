@@ -23,8 +23,10 @@ dependencies = [
     "streamlit",
     "python-dotenv",
     "langchain-community",
-    "app @ file://../jjd_chat_ai_app"
+    "jjd-chat-ai-app"
 ]
 
 [project.urls]
 Homepage = "https://www.juniorjavadeveloper.pl/en/"
+
+#"app @ file://../jjd_chat_ai_app"
