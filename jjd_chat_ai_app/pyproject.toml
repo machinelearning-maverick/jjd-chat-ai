@@ -3,11 +3,11 @@ requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
-packages = ["app"]
+packages = ["app", "tests"]
 
 [tool.setuptools.package-data]
 "app" = ["resources/*"]
-"app.tests" = ["resources/*"]
+"tests" = ["resources/*"]
 
 [project]
 name = "jjd-chat-ai-app"

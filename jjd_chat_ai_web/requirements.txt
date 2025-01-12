@@ -1,8 +1,7 @@
 openai
-langchain
 langchain-openai
 langchain-community
 chromadb
 streamlit
 tiktoken
-jjd_chat_ai_app
+jjd-chat-ai-app
