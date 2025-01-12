@@ -2,7 +2,7 @@ from langchain_community.vectorstores import Chroma
 from langchain_openai import OpenAIEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain.chains import RetrievalQA
-from langchain.chat_models import ChatOpenAI
+from langchain_openai import ChatOpenAI
 
 
 def chunk_data(data, chunk_size=256, chunk_overlap=20):
@@ -12,10 +12,10 @@ def chunk_data(data, chunk_size=256, chunk_overlap=20):
     print("Chunks created")
     return chunks
 
-def create_embeddings(chunks):
+def create_embeddings(chunks, persist_directory="./chroma_db"):
     print(f"create_embeddings()")
     embeddings = OpenAIEmbeddings()
-    vector_store = Chroma.from_documents(chunks, embeddings)
+    vector_store = Chroma.from_documents(chunks, embeddings, persist_directory=persist_directory)
     print("Embeddings created")
     return vector_store
 
