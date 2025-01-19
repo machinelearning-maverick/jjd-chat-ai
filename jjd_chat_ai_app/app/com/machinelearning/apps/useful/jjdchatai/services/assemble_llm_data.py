@@ -1,6 +1,6 @@
 import os.path
 
-from langchain_community.vectorstores import Chroma
+from langchain_chroma import Chroma
 from langchain_openai import OpenAIEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain.chains import RetrievalQA
@@ -16,12 +16,13 @@ def chunk_data(data, chunk_size=256, chunk_overlap=20):
 
 def create_embeddings(chunks, persist_directory="./chroma_db"):
     print(f"create_embeddings()")
+    embeddings = OpenAIEmbeddings()
+
     if os.path.exists(persist_directory) and os.listdir(persist_directory):
         print("Persist directory is not empty. Loading existing vector store.")
-        vector_store = Chroma(persist_directory=persist_directory)
+        vector_store = Chroma(persist_directory=persist_directory, embedding_function=embeddings)
     else:
         print("Persist directory is empty. Creating new vector store.")
-        embeddings = OpenAIEmbeddings()
         vector_store = Chroma.from_documents(chunks, embeddings, persist_directory=persist_directory)
     print("Embeddings created")
     return vector_store
