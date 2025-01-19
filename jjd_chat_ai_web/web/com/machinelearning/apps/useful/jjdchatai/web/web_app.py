@@ -1,42 +1,51 @@
 from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv(), override=True)
 
-import os
+import yaml
+import logging
+import logging.config
 import streamlit as st
 
-import importlib.resources as pkg_resources
-# import app.com.machinelearning.apps.useful.jjdchatai.services.posts_loader as pl
 import app.com.machinelearning.apps.useful.jjdchatai.services.assemble_llm_data as ald
 import app.com.machinelearning.apps.useful.jjdchatai.services.vector_store_service as vss
 
+with open("logging_config.yaml", "r") as file:
+    config = yaml.safe_load(file)
+    logging.config.dictConfig(config)
+
+logger = logging.getLogger("jjdchatai_logger")
+
 
 def session_management():
-    # app_resources = os.environ["APP_WEB_RESOURCES_ROOT"]
-    # posts_csv_file = os.environ["BLOG_POSTS_FILE"]
-
     if "vs" not in st.session_state:
-        print(f"session_management()")
-        # resource_path = pkg_resources.files(app_resources).joinpath(posts_csv_file)
-        # loaded_posts = pl.load_file(resource_path)
-        # chunks = ald.chunk_data(loaded_posts)
-        # vector_store = ald.create_embeddings(chunks)
+        logging.info("session_management()")
         vector_store = vss.prepare_vector_store()
         st.session_state.vs = vector_store
-        print("Session state created")
+        logging.info("Session state created")
 
 
-if __name__ == "__main__":
-    # app_resources = os.environ["APP_WEB_RESOURCES_ROOT"]
-    # posts_csv_file = "Wpisy-Export-2025-January-02-2137.csv"
-
-    session_management()
+def main():
+    logging.info("BEGIN: main()")
 
     st.title("Question and Answer Chat")
     st.write("Question and Answer Chat for the Blog content - powered by AI")
 
-    question = st.text_input("Write question:")
-    clicked = st.button("Ask question")
+    with st.form("qanda_form"):
+        question = st.text_input("Write question:")
+        clicked = st.form_submit_button("Ask question")
 
-    if clicked:
-        llm_answer = ald.ask_and_get_answer(st.session_state.vs, question)
-        answer = st.text_area("Answer:", value=llm_answer)
+    try:
+        session_management()
+
+        if clicked:
+            llm_answer = ald.ask_and_get_answer(st.session_state.vs, question)
+            answer = st.text_area("Answer:", value=llm_answer)
+    except Exception as e:
+        logging.error("Error during calculation", exc_info=True)
+        st.error("An unexpected error occurred. Please try again.")
+
+    logging.info("END: main()")
+
+
+if __name__ == "__main__":
+    main()

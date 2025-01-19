@@ -1,9 +1,13 @@
+setuptools
+python-dotenv
 openai
 langchain
+langchain-chroma
 langchain-openai
 langchain-community
-chromadb
+langchain-text-splitters
 streamlit
 tiktoken
+pyyaml
 jjd-chat-ai-app
 jjd-chat-ai-web
