@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["app", "web"]
+
+[tool.setuptools.package-dir]
+app = "jjd_chat_ai_app/app"
+web = "jjd_chat_ai_web/web"
+
+[project]
+name = "jjd-chat-ai"
+version = "0.1.0"
+description = "Question and Answer Chat for the Blog content - powered by AI"
+authors = [
+    { name = "Jacek Jabłonka", email = "kontakt@juniorjavadeveloper.pl" }
+]
+requires-python = ">=3.6"
+dependencies = [
+    "setuptools",
+    "python-dotenv",
+    "openai",
+    "langchain",
+    "langchain-chroma",
+    "langchain-openai",
+    "langchain-community",
+    "langchain-text-splitters",
+    "streamlit",
+    "tiktoken",
+    "pyyaml",
+    "jjd-chat-ai-app",
+    "jjd-chat-ai-web"
+]
