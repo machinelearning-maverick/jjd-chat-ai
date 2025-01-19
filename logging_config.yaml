@@ -1,0 +1,27 @@
+version: 1
+formatters:
+  standard:
+    format: "%(asctime)s - %(levelname)s - %(message)s"
+
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: ERROR
+    formatter: standard
+    stream: ext://sys.stdout
+
+  file:
+    class: logging.FileHandler
+    level: ERROR
+    formatter: standard
+    filename: "app.log"
+
+loggers:
+  my_logger:
+    level: ERROR
+    handlers: [ console, file ]
+    propagate: no
+
+root:
+  level: WARNING
+  handlers: [ console ]
