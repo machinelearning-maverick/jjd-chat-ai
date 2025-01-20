@@ -6,8 +6,9 @@ import logging
 import logging.config
 import streamlit as st
 
-import app.com.machinelearning.apps.useful.jjdchatai.services.assemble_llm_data as ald
+# import app.com.machinelearning.apps.useful.jjdchatai.services.assemble_llm_data as ald
 import app.com.machinelearning.apps.useful.jjdchatai.services.vector_store_service as vss
+import app.com.machinelearning.apps.useful.jjdchatai.services.conversational_chat as cc
 
 with open("logging_config.yaml", "r") as file:
     config = yaml.safe_load(file)
@@ -38,7 +39,15 @@ def main():
         session_management()
 
         if clicked:
-            llm_answer = ald.ask_and_get_answer(st.session_state.vs, question)
+            # llm_answer = ald.ask_and_get_answer(st.session_state.vs, question)
+            # llm_answer = cc.create_conversational_chat(st.session_state.vs, question)
+
+            unset_chain = object()
+            chain = unset_chain
+            if chain is unset_chain:
+                chain = cc.create_conversational_chat(st.session_state.vs)
+            llm_answer = cc.ask_question(question, chain)
+
             answer = st.text_area("Answer:", value=llm_answer)
     except Exception as e:
         logging.error("Error during calculation", exc_info=True)
