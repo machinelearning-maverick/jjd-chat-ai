@@ -5,8 +5,9 @@ import yaml
 import logging
 import logging.config
 import streamlit as st
+from streamlit_chat import message
+from langchain.schema import SystemMessage, HumanMessage, AIMessage
 
-# import app.com.machinelearning.apps.useful.jjdchatai.services.assemble_llm_data as ald
 import app.com.machinelearning.apps.useful.jjdchatai.services.vector_store_service as vss
 import app.com.machinelearning.apps.useful.jjdchatai.services.conversational_chat as cc
 
@@ -56,7 +57,14 @@ class JJDChatAIWebApp:
         try:
             if clicked:
                 llm_answer = cc.ask_question(question, self.cc_chain)
-                answer = st.text_area("Answer:", value=llm_answer)
+                # answer = st.text_area("Answer:", value=llm_answer)
+
+                if llm_answer:
+                    for history in llm_answer["chat_history"]:
+                        if isinstance(history, HumanMessage):
+                            message(history.content, is_user=True)
+                        elif isinstance(history, AIMessage):
+                            message(history.content, is_user=False)
         except Exception as e:
             logging.error("Error during calculation", exc_info=True)
             st.error("An unexpected error occurred. Please try again.")
