@@ -17,8 +17,8 @@ handlers:
     filename: "app.log"
 
 loggers:
-  my_logger:
-    level: ERROR
+  jjdchatai_logger:
+    level: INFO
     handlers: [ console, file ]
     propagate: no
 
