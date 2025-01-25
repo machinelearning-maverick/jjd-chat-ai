@@ -5,7 +5,6 @@ langchain-chroma
 langchain-openai
 langchain-community
 streamlit
-streamlit_chat
 tiktoken
 pyyaml
 jjd-chat-ai-app
