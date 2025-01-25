@@ -48,16 +48,17 @@ class JJDChatAIWebApp:
             try:
                 if clicked:
                     if question.strip():
-                        llm_answer = cc.ask_question(question, self.cc_chain)
-                        if llm_answer:
-                            chat_history = llm_answer["chat_history"]
-                            answer_pairs = [(chat_history[i], chat_history[i + 1]) for i in
-                                            range(0, len(chat_history) - 1, 2)]
+                        with st.spinner("Thinking..."):
+                            llm_answer = cc.ask_question(question, self.cc_chain)
+                            if llm_answer:
+                                chat_history = llm_answer["chat_history"]
+                                answer_pairs = [(chat_history[i], chat_history[i + 1]) for i in
+                                                range(0, len(chat_history) - 1, 2)]
 
-                            for answer in reversed(answer_pairs):
-                                st.divider()
-                                st.markdown(f":robot_face: **AI:** {answer[0].content}")
-                                st.markdown(f":man: **You:** {answer[1].content}")
+                                for answer in reversed(answer_pairs):
+                                    st.divider()
+                                    st.markdown(f":robot_face: **AI:** {answer[0].content}")
+                                    st.markdown(f":man: **You:** {answer[1].content}")
                     else:
                         st.error("Please enter a question.")
             except Exception as e:
